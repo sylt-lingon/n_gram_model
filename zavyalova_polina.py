@@ -30,7 +30,7 @@ words = dict()
 text = ''
 
 #читаем файл, на основе которого будет генироваться текст, очищаем от знаков препинания и создаем словарь уникальных слов текста
-with open('alice_in_wonderland.txt') as f:
+with open('harry_potter_1.txt', encoding = 'Windows 1251') as f:
     for line in f:
         line = clean_text(line)
         text += line + ' '
