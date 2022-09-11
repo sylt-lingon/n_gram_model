@@ -1,9 +1,12 @@
+#импортируем нужные библиотеки
 import string
 from numpy import random
 from collections import defaultdict
 
+#задаем размер генерируемого текста
 NEW_TEXT_SIZE = 20
 
+#убираем из строки текста знаки препинания
 def clean_text(line):
     line = line.strip()
     res_line = ''
@@ -14,6 +17,7 @@ def clean_text(line):
         res_line += word
     return res_line    
 
+#создаем словарь уникальных слов и считаем кол-во раз употребления каждого из слов
 def get_words(line, words):
     s = line.split()
     for w in s:
@@ -24,26 +28,15 @@ def get_words(line, words):
 
 words = dict()
 text = ''
-#with open('romeo_and_juliet.txt') as f:
+
+#читаем файл, на основе которого будет генироваться текст, очищаем от знаков препинания и создаем словарь уникальных слов текста
 with open('alice_in_wonderland.txt') as f:
     for line in f:
         line = clean_text(line)
         text += line + ' '
         get_words(line, words)
 
-# print(text)
-print(words)
-
-words_count = 0
-for w in words:
-    words_count += words[w]
-print(words_count)
-
-words_prob = dict()
-for w in words:
-    words_prob[w] = words[w] / words_count
-print(words_prob)
-
+#создаем словарь возможных пар слов и количество употребления каждоу из пар
 words_pair = defaultdict(list)
 text_list = text.split()
 for i in range(len(text_list) - 1):
@@ -57,8 +50,8 @@ for i in range(len(text_list) - 1):
             break
     if not flag:
         words_pair[w1].append([w2, 1])
-print(words_pair)
 
+#выбираем первое слово и генерируем текст
 word0 = random.choice(list(words.keys()), 1)[0]
 new_text = word0
 for i in range(1, NEW_TEXT_SIZE):
@@ -71,6 +64,7 @@ for i in range(1, NEW_TEXT_SIZE):
     word0 = words_pair[word0][k][0]
     new_text += ' ' + word0
 
+#выводим сгенерированный текст
 print(new_text)
         
     
