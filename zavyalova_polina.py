@@ -36,7 +36,7 @@ with open('alice_in_wonderland.txt') as f:
         text += line + ' '
         get_words(line, words)
 
-#создаем словарь возможных пар слов и количество употребления каждоу из пар
+#создаем словарь возможных пар слов и количество употребления каждой из пар
 words_pair = defaultdict(list)
 text_list = text.split()
 for i in range(len(text_list) - 1):
